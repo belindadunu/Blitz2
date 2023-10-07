@@ -1,9 +1,7 @@
-# Blitz2
-
-# URL Shortener Load Testing Documentation
+# URL Shortener Load Testing
 
 ## Overview
-I deployed a new version of the URL Shortener application on a t2.medium EC2 instance and conducted a load test to validate it could handle 14,000 concurrent users. The initial test exposed some performance issues under high load. I took steps to remediate these issues and re-tested on a larger instance type from the m4 instance family to successfully handle the required user load.
+I was tasked with deploying a new version of the URL Shortener application and ensuring it could handle a load test of 14,000 concurrent users. The initial test exposed some performance issues under high load. I took steps to remediate these issues and re-tested on a larger instance type from the m4 instance family to successfully handle the required user load.
 
 ## Initial Deployment and Configuration
 - Verified AWS CLI was installed locally
@@ -29,16 +27,14 @@ I deployed a new version of the URL Shortener application on a t2.medium EC2 ins
   - The t2 instance family provides burstable CPU performance which can be problematic for sustaining high loads
 - Configured Nginx with 8 worker processes and connections increased to 2000
 <img width="381" alt="blitz2_img13" src="https://github.com/belindadunu/Blitz2/assets/139175163/b68a19e1-961a-4386-a657-51cf93f1a847">
-
 - Enabled Gzip compression in Nginx for faster load times
 <img width="1276" alt="blitz2_img14" src="https://github.com/belindadunu/Blitz2/assets/139175163/776e1eb8-a0cb-49a2-bfd2-089b69c8b76e">
-
 - Wrote a bash script to simulate load: `sudo nice -n -20 stress-ng --cpu 2 &`
   - This script consumes 2 CPU cores to simulate user load
-
 <img width="1027" alt="blitz2_img6" src="https://github.com/belindadunu/Blitz2/assets/139175163/da2df2ed-53be-416f-bbfe-79be5c50bc24">
-
 - QA engineer kicked off 14,000 concurrent requests to stress test the application
+<img width="1203" alt="blitz2_img7" src="https://github.com/belindadunu/Blitz2/assets/139175163/6a79850a-d1de-41ee-8ce8-5f179fd2cb6f">
+
 
 ### Initial Test Results
 - Application served 13,992 requests successfully
@@ -52,11 +48,8 @@ I deployed a new version of the URL Shortener application on a t2.medium EC2 ins
 
 ## Diagnosis and Remediation
 - Reviewed logs and monitoring data
-
 <img width="1186" alt="blitz2_img11" src="https://github.com/belindadunu/Blitz2/assets/139175163/fa7a0840-0dae-4cb6-a1f3-996888d4b2d7">
-
 <img width="1422" alt="blitz2_img12" src="https://github.com/belindadunu/Blitz2/assets/139175163/2fc9748c-342d-4741-a867-5699527fcd95">
-
 - Determined the t2.medium instance did not have adequate resources to handle the load
 - Considered m4, c4, and r4 instance families and selected m4.xlarge as best fit
 - Created a t2.micro instance to test instance type change script:
