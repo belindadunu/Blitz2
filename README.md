@@ -27,11 +27,14 @@ I was tasked with deploying a new version of the URL Shortener application and e
   - The t2 instance family provides burstable CPU performance which can be problematic for sustaining high loads
 - Configured Nginx with 8 worker processes and connections increased to 2000
 <img width="381" alt="blitz2_img13" src="https://github.com/belindadunu/Blitz2/assets/139175163/b68a19e1-961a-4386-a657-51cf93f1a847">
+
 - Enabled Gzip compression in Nginx for faster load times
 <img width="1276" alt="blitz2_img14" src="https://github.com/belindadunu/Blitz2/assets/139175163/776e1eb8-a0cb-49a2-bfd2-089b69c8b76e">
+
 - Wrote a bash script to simulate load: `sudo nice -n -20 stress-ng --cpu 2 &`
   - This script consumes 2 CPU cores to simulate user load
 <img width="1027" alt="blitz2_img6" src="https://github.com/belindadunu/Blitz2/assets/139175163/da2df2ed-53be-416f-bbfe-79be5c50bc24">
+
 - QA engineer kicked off 14,000 concurrent requests to stress test the application
 <img width="1203" alt="blitz2_img7" src="https://github.com/belindadunu/Blitz2/assets/139175163/6a79850a-d1de-41ee-8ce8-5f179fd2cb6f">
 
