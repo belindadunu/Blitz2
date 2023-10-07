@@ -40,9 +40,10 @@ I was tasked with deploying a new version of the URL Shortener application and e
 - Application served 13,992 requests successfully
 - 8 users received errors and were unable to access the application
 <img width="980" alt="blitz2_img8" src="https://github.com/belindadunu/Blitz2/assets/139175163/dc1b1241-cc25-4752-8563-49b188f015a4">
-- CPU usage spiked to 99%
+
+- CPU usage spiked to 99%:
 <img width="758" alt="blitz2_img10" src="https://github.com/belindadunu/Blitz2/assets/139175163/b4a45f56-42b2-4225-8de1-e1a33c4d8706">
-- Application crashed after serving approximately 5,000 requests
+
 - Logging showed request timeouts and 500 errors
 <img width="1420" alt="blitz2_img9" src="https://github.com/belindadunu/Blitz2/assets/139175163/9b9a5480-9d93-4362-bca9-7536c68d2018">
 
