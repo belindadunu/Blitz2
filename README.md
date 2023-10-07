@@ -54,6 +54,7 @@ I was tasked with deploying a new version of the URL Shortener application and e
 - Reviewed logs and monitoring data
 <img width="1186" alt="blitz2_img11" src="https://github.com/belindadunu/Blitz2/assets/139175163/fa7a0840-0dae-4cb6-a1f3-996888d4b2d7">
 <img width="1422" alt="blitz2_img12" src="https://github.com/belindadunu/Blitz2/assets/139175163/2fc9748c-342d-4741-a867-5699527fcd95">
+
 - Determined the t2.medium instance did not have adequate resources to handle the load
 - Considered m4, c4, and r4 instance families and selected m4.xlarge as best fit
 - Created a t2.micro instance to test instance type change script:
