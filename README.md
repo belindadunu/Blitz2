@@ -94,17 +94,21 @@ aws ec2 stop-instances --instance-ids $INSTANCE_ID
 aws ec2 wait instance-stopped --instance-ids $INSTANCE_ID
 
 # Change instance type
-aws ec2 modify-instance-attribute --instance-id $INSTANCE_ID --instance-type "{"Value": "$NEW_TYPE"}"
+aws ec2 modify-instance-attribute --instance-id "$INSTANCE_ID" --instance-type "$NEW_TYPE"
 
 # Start instance
 aws ec2 start-instances --instance-ids $INSTANCE_ID
 
 echo "Instance $INSTANCE_ID changed to type $NEW_TYPE"
 ```
-
 - Tested script and changed instance to t2.medium
 - Verified new instance type with `aws ec2 describe-instance-types`
 - Migrated application to m4.xlarge instance
+
+<img width="610" alt="blitz2_img15" src="https://github.com/belindadunu/Blitz2/assets/139175163/20843724-451d-4a17-887e-333c94feea32">
+<img width="515" alt="blitz2_img16" src="https://github.com/belindadunu/Blitz2/assets/139175163/04898907-7089-44f6-a1f5-b8d2bd99c56e">
+<img width="512" alt="blitz2_img17" src="https://github.com/belindadunu/Blitz2/assets/139175163/1902be47-d44f-4cd2-a1b0-38468c5fee6d">
+<img width="494" alt="blitz2_img18" src="https://github.com/belindadunu/Blitz2/assets/139175163/414c8d34-d574-47e1-9e9b-d8b058609ab7">
 
 ## Final Load Test Results
 - Reran test with 14,000 concurrent users on m4.xlarge instance
