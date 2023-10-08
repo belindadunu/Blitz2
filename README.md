@@ -146,3 +146,6 @@ For this application, the m4.xlarge with 4 vCPUs and 16GB RAM provided the right
 ## References
 - [EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/)
 - [EC2 Network Bandwidth](https://aws.amazon.com/ec2/networking/)
+- [Find an Amazon EC2 instance type](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-discovery.html)
+- [Describe Instance Types — AWS CLI 1.29.59 Command Reference](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instance-types.html)
+
