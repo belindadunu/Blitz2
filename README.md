@@ -120,7 +120,7 @@ _Please note that projected results are based on an analysis of previous load te
 The t2.medium instance lacked the resources to handle the target load. Migrating to m4.xlarge provided the necessary CPU, memory, and network capacity to serve 14,000 concurrent users successfully. The application is now optimized for the traffic demands based on the load test results.
 
 ![blitz2](https://github.com/belindadunu/Blitz2/assets/139175163/d2ba2b9f-68f3-4cdc-bda5-8a3e1e1d1a46)
-**_Please note: This diagram focuses on the core application flow and logging/monitoring implementation that was configured during the load testing phase. Assume all components reside within the Amazon VPC public subnet we utilized in our (deployment 4)[https://github.com/belindadunu/deployment4]. Our security group restricts access to ports 22, 80, 5000, and 8080 in order to isolate the web server and permit only required protocols._**
+**_Please note: This diagram focuses on the core application flow and logging/monitoring implementation that was configured during the load testing phase. Assume all components reside within the Amazon VPC public subnet we utilized in our [deployment 4](https://github.com/belindadunu/deployment4). Our security group restricts access to ports 22, 80, 5000, and 8080 in order to isolate the web server and permit only required protocols._**
 
 ## Instance Sizing Guide
 When selecting an EC2 instance type to handle a certain load, there are a few key specifications to consider:
