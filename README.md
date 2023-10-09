@@ -116,7 +116,7 @@ echo "Instance $INSTANCE_ID changed to type $NEW_TYPE"
 
 _Please note that projected results are based on an analysis of previous load test data and new architecture sizing. Actual performance metrics will be updated after QA completes validation testing."_
 
-## Conclusion
+## Conclusion (Projected)
 The t2.medium instance lacked the resources to handle the target load. Migrating to m4.xlarge provided the necessary CPU, memory, and network capacity to serve 14,000 concurrent users successfully. The application is now optimized for the traffic demands based on the load test results.
 
 ![blitz2](https://github.com/belindadunu/Blitz2/assets/139175163/d2ba2b9f-68f3-4cdc-bda5-8a3e1e1d1a46)
