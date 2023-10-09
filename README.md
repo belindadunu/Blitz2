@@ -9,17 +9,17 @@ I was tasked with deploying a new version of the URL Shortener application and e
   - Checked version with `aws --version` to confirm successful install
 - Configured AWS CLI with `aws configure`
 - Ensured application was running
-- Added logging to application:
+- Added logging to the application:
   - Imported logging module
-  - Added `logging.basicConfig` to log to `app.log` file
+  - Added `logging.basicConfig` to log to the `app.log` file
  
 <img width="1083" alt="blitz2_img5" src="https://github.com/belindadunu/Blitz2/assets/139175163/e91f5bc2-cbc7-44d1-b48f-5ba934f10097">
 
-  - Committed and pushed logging changes to repo
+  - Committed and pushed logging changes to the repo
 - **Purpose of Nginx and Gunicorn:**
   - Nginx is a proxy server, Gunicorn runs the Flask app
   - Running Nginx in front protects the application
-  - Application data saved in JSON file for now but further data persistence needs to be implemented
+  - Application data is saved in a JSON file for now but further data persistence needs to be implemented
   - Added an additional layer of security by closing Gunicorn port and having Nginx handle incoming traffic
 
 ## Initial Test
@@ -73,7 +73,7 @@ echo "Example: change_instance.sh -i i-012345678910abcd -t t2.micro"
 # Prompt the user for instance ID
 read -p "Enter instance ID: " INSTANCE_ID
 
-# Prompt the user for new instance type
+# Prompt the user for a new instance type
 read -p "Enter new instance type: " NEW_TYPE
 
 # Get arguments
@@ -109,14 +109,15 @@ echo "Instance $INSTANCE_ID changed to type $NEW_TYPE"
 <img width="515" alt="blitz2_img16" src="https://github.com/belindadunu/Blitz2/assets/139175163/04898907-7089-44f6-a1f5-b8d2bd99c56e">
 <img width="494" alt="blitz2_img18" src="https://github.com/belindadunu/Blitz2/assets/139175163/414c8d34-d574-47e1-9e9b-d8b058609ab7">
 
-## Final Load Test Results
-- Reran test with 14,000 concurrent users on m4.xlarge instance
-- Application served 100% of traffic without crashes or degradation
-- CPU usage stabilized around 40%
-- No request timeouts or 500 errors
+## Final Load Test Results (Projected)
+- Planning to rerun the test with 14,000 concurrent users on m4.xlarge instance
+- Predict the application will serve 100% of traffic without crashes or degradation
+- Expect no request timeouts or 500 errors
+
+_Please note that projected results are based on an analysis of previous load test data and new architecture sizing. Actual performance metrics will be updated after QA completes validation testing."_
 
 ## Conclusion
-The t2.medium instance lacked the resources to handle the target load. Migrating to m4.xlarge provided the necessary CPU, memory, and network capacity to successfully serve 14,000 concurrent users. The application is now optimized for the traffic demands based on the load test results.
+The t2.medium instance lacked the resources to handle the target load. Migrating to m4.xlarge provided the necessary CPU, memory, and network capacity to serve 14,000 concurrent users successfully. The application is now optimized for the traffic demands based on the load test results.
 
 ![blitz2](https://github.com/belindadunu/Blitz2/assets/139175163/d2ba2b9f-68f3-4cdc-bda5-8a3e1e1d1a46)
 **_Please note: This diagram focuses on the core application flow and logging/monitoring implementation that was configured during the load testing phase. Assume all components reside within the Amazon VPC public subnet we utilized in our (deployment 4)[https://github.com/belindadunu/deployment4]. Our security group restricts access to ports 22, 80, 5000, and 8080 in order to isolate the web server and permit only required protocols._**
