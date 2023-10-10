@@ -1,7 +1,7 @@
 # URL Shortener Load Testing
 
 ## Overview
-I was tasked with deploying a new version of the URL Shortener application and ensuring it could handle a load test of 14,000 concurrent users. The initial test exposed some performance issues under high load. I took steps to remediate these issues and re-tested on a larger instance type from the m4 instance family to successfully handle the required user load.
+I was tasked with deploying a new version of the URL Shortener application and ensuring it could handle a load test of 14,000 concurrent users. The initial test exposed some performance issues under high load. I took steps to remediate these issues and re-tested on a larger instance type from the m5 instance family to successfully handle the required user load.
 
 ## Initial Deployment and Configuration
 - Verified AWS CLI was installed locally
@@ -21,6 +21,18 @@ I was tasked with deploying a new version of the URL Shortener application and e
   - Running Nginx in front protects the application
   - Application data is saved in a JSON file for now but further data persistence needs to be implemented
   - Added an additional layer of security by closing Gunicorn port and having Nginx handle incoming traffic
+ 
+## Security Enhancement Considerations
+
+For increased security, we could also consider closing port 8000 which exposes direct access to the Gunicorn server. By shutting down this port and routing all incoming traffic through Nginx, we can further restrict access to the application server.
+
+This provides additional security by limiting external connectivity to the Gunicorn container running Flask. Only Nginx would be able to connect internally to port 8000.
+
+While not implemented in the current architecture, this port closure could be evaluated in the future as a way to enhance overall security by limiting the exposed attack surface. The tradeoff would be slightly increased complexity in routing requests through Nginx vs direct connections to Gunicorn.
+
+This change would require updating the security group to remove access to port 8000 across the board. All HTTP requests would need to be handled by Nginx and then forwarded to Gunicorn on port 8000 internally.
+
+This extra security measure could be considered for future iterations to improve defense-in-depth.
 
 ## Initial Test
 - Deployed application on t2.medium EC2 instance
@@ -47,7 +59,7 @@ I was tasked with deploying a new version of the URL Shortener application and e
 - CPU usage spiked to 99%:
 <img width="758" alt="blitz2_img10" src="https://github.com/belindadunu/Blitz2/assets/139175163/b4a45f56-42b2-4225-8de1-e1a33c4d8706">
 
-- Logging showed request timeouts and 500 errors
+- Logging showed request timeouts and 500 status code errors
 <img width="1420" alt="blitz2_img9" src="https://github.com/belindadunu/Blitz2/assets/139175163/9b9a5480-9d93-4362-bca9-7536c68d2018">
 
 ## Diagnosis and Remediation
@@ -56,7 +68,7 @@ I was tasked with deploying a new version of the URL Shortener application and e
 <img width="1422" alt="blitz2_img12" src="https://github.com/belindadunu/Blitz2/assets/139175163/2fc9748c-342d-4741-a867-5699527fcd95">
 
 - Determined the t2.medium instance did not have adequate resources to handle the load
-- Considered m4, c4, and r4 instance families and selected m4.xlarge as best fit
+- Considered m5, c5, and r5 instance families and selected m5.xlarge as best fit
 - Created a t2.micro instance to test instance type change script:
 
 ```bash
@@ -103,21 +115,21 @@ echo "Instance $INSTANCE_ID changed to type $NEW_TYPE"
 ```
 - Tested script and changed instance to t2.medium
 - Verified new instance type with `aws ec2 describe-instance-types`
-- Migrated application to m4.xlarge instance
+- Migrated application to m5.xlarge instance
 
 <img width="610" alt="blitz2_img15" src="https://github.com/belindadunu/Blitz2/assets/139175163/20843724-451d-4a17-887e-333c94feea32">
 <img width="515" alt="blitz2_img16" src="https://github.com/belindadunu/Blitz2/assets/139175163/04898907-7089-44f6-a1f5-b8d2bd99c56e">
 <img width="494" alt="blitz2_img18" src="https://github.com/belindadunu/Blitz2/assets/139175163/414c8d34-d574-47e1-9e9b-d8b058609ab7">
 
 ## Final Load Test Results (Projected)
-- Planning to rerun the test with 14,000 concurrent users on m4.xlarge instance
+- Planning to rerun the test with 14,000 concurrent users on m5.xlarge instance
 - Predict the application will serve 100% of traffic without crashes or degradation
-- Expect no request timeouts or 500 errors
+- Expect no request timeouts or 500 status code errors
 
 _Please note that projected results are based on an analysis of previous load test data and new architecture sizing. Actual performance metrics will be updated after QA completes validation testing."_
 
 ## Conclusion (Projected)
-The t2.medium instance lacked the resources to handle the target load. Migrating to m4.xlarge provided the necessary CPU, memory, and network capacity to serve 14,000 concurrent users successfully. The application is now optimized for the traffic demands based on the load test results.
+The t2.medium instance lacked the resources to handle the target load. Migrating to m5.xlarge provided the necessary CPU, memory, and network capacity to serve 14,000 concurrent users successfully. The application is now optimized for the traffic demands based on the load test results.
 
 ![blitz2](https://github.com/belindadunu/Blitz2/assets/139175163/d2ba2b9f-68f3-4cdc-bda5-8a3e1e1d1a46)
 
@@ -146,7 +158,7 @@ When sizing the instance:
 - Allow for growth by selecting an instance well above the minimum required
 - Prioritize having adequate CPU cores and RAM for your application
 
-For this application, the m4.xlarge with 4 vCPUs and 16GB RAM provided the right resources to handle the load.
+For this application, the m5.xlarge with 4 vCPUs and 16GB RAM provided the right resources to handle the load.
 
 ## References
 - [EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/)
