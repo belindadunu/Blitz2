@@ -1,7 +1,7 @@
 # URL Shortener Load Testing
 
 ## Overview
-I was tasked with deploying a new version of the URL Shortener application and ensuring it could handle a load test of 14,000 concurrent users. The initial test exposed some performance issues under high load. I took steps to remediate these issues and re-tested on a larger instance type from the m5 instance family to successfully handle the required user load.
+I was tasked with deploying a new version of the URL Shortener application and ensuring it could handle a load test of 14,000 concurrent users. The initial test exposed some performance issues under high load. I took steps to remediate these issues and re-tested on a larger instance type to successfully handle the required user load.
 
 ## Initial Deployment and Configuration
 - Verified AWS CLI was installed locally
@@ -68,7 +68,9 @@ This extra security measure could be considered for future iterations to improve
 <img width="1422" alt="blitz2_img12" src="https://github.com/belindadunu/Blitz2/assets/139175163/2fc9748c-342d-4741-a867-5699527fcd95">
 
 - Determined the t2.medium instance did not have adequate resources to handle the load
-- Considered m5, c5, and r5 instance families and selected m5.xlarge as best fit
+- Considered m4, c4, and r4 instance families and selected m4.xlarge as best fit
+  - In retrospect, t3.xlarge may have been more cost-effective while still providing the necessary resources
+  - The ideal instance type depends on the specific application architecture, resource usage, and budget
 - Created a t2.micro instance to test instance type change script:
 
 ```bash
@@ -115,21 +117,21 @@ echo "Instance $INSTANCE_ID changed to type $NEW_TYPE"
 ```
 - Tested script and changed instance to t2.medium
 - Verified new instance type with `aws ec2 describe-instance-types`
-- Migrated application to m5.xlarge instance
+- Migrated application to m4.xlarge instance
 
 <img width="610" alt="blitz2_img15" src="https://github.com/belindadunu/Blitz2/assets/139175163/20843724-451d-4a17-887e-333c94feea32">
 <img width="515" alt="blitz2_img16" src="https://github.com/belindadunu/Blitz2/assets/139175163/04898907-7089-44f6-a1f5-b8d2bd99c56e">
 <img width="494" alt="blitz2_img18" src="https://github.com/belindadunu/Blitz2/assets/139175163/414c8d34-d574-47e1-9e9b-d8b058609ab7">
 
-## Final Load Test Results (Projected)
-- Planning to rerun the test with 14,000 concurrent users on m5.xlarge instance
-- Predict the application will serve 100% of traffic without crashes or degradation
-- Expect no request timeouts or 500 status code errors
+## Final Load Test Results
+- Reran the test with 14,000 concurrent users on m4.xlarge instance
+- Application served 100% of traffic without crashes or degradation
+- No request timeouts or 500 status code errors
 
-_Please note that projected results are based on an analysis of previous load test data and new architecture sizing. Actual performance metrics will be updated after QA completes validation testing."_
+![blitz2_img19](https://github.com/belindadunu/Blitz2/assets/139175163/1ae68df9-bad5-4315-91c6-42aa82ec2433)
 
-## Conclusion (Projected)
-The t2.medium instance lacked the resources to handle the target load. Migrating to m5.xlarge provided the necessary CPU, memory, and network capacity to serve 14,000 concurrent users successfully. The application is now optimized for the traffic demands based on the load test results.
+## Conclusion
+The t2.medium instance lacked the resources to handle the target load. Migrating to a larger instance size provided the necessary CPU, memory, and network capacity to successfully serve 14,000 concurrent users. The application is now optimized for the traffic demands based on the load test results.
 
 ![blitz2](https://github.com/belindadunu/Blitz2/assets/139175163/d2ba2b9f-68f3-4cdc-bda5-8a3e1e1d1a46)
 
@@ -158,7 +160,7 @@ When sizing the instance:
 - Allow for growth by selecting an instance well above the minimum required
 - Prioritize having adequate CPU cores and RAM for your application
 
-For this application, the m5.xlarge with 4 vCPUs and 16GB RAM provided the right resources to handle the load.
+For this application, the m4.xlarge with 4 vCPUs and 16GB RAM provided the right resources to handle the load.
 
 ## References
 - [EC2 Instance Types](https://aws.amazon.com/ec2/instance-types/)
