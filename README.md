@@ -11,7 +11,7 @@ I was tasked with deploying a new version of the URL Shortener application and e
 - Ensured application was running
 - Added logging to the application:
   - Imported logging module
-  - Added `logging.basicConfig` to log to the `app.log` file
+  - Added `logging.basicConfig` to log to the `app.py` file
  
 <img width="1083" alt="blitz2_img5" src="https://github.com/belindadunu/Blitz2/assets/139175163/e91f5bc2-cbc7-44d1-b48f-5ba934f10097">
 
